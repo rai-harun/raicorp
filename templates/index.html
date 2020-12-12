@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+<title> RaiCorp | Home </title>
+{% endblock title %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <div class="bg bg-warning p-4">Welcome to RaiCorp</div>
+    <div id="samaya" class="text-center bg bg-info p-4 mt-3"></div>
+</div>
+<script>
+    var dt = new Date()
+    document.getElementById('samaya').innerHTML = dt.toLocaleString();
+</script>
+{% endblock content %}
