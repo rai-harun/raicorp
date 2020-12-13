@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>RaiCorp Todo | Home</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-3">
+    <a href="{% url 'todoadd' %}" class="m-2 btn btn-primary">Add a todo</a>
+    <hr>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tasks</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for todo in todos %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{todo.title}}</td>
+            <td>{{todo.created_at}}</td>
+            <td>
+                <a href="#" class="btn btn-info">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+                <a href="#" class="btn btn-success">Complete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock content %}
