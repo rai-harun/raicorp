@@ -14,7 +14,10 @@
         <th scope="col">#</th>
         <th scope="col">Tasks</th>
         <th scope="col">Date Created</th>
+<<<<<<< HEAD
         <th scope="col">Status</th>
+=======
+>>>>>>> b873ec94eaf2dbb7b8e44672b3e326662327e98f
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -24,6 +27,7 @@
         <th scope="row">{{forloop.counter}}</th>
         <td>{{todo.title}}</td>
         <td>{{todo.created_at}}</td>
+<<<<<<< HEAD
         <td>{{todo.completed}}</td>
         <td>
           <!-- Button trigger modal -->
@@ -36,6 +40,14 @@
           <a href="{% url 'todoedit' todo.id %}" class="btn btn-info">Edit</a>
           <a href="{% url 'todocomplete' todo.id %}" class="btn btn-success">Complete</a>
           {% endif %}
+=======
+        <td>
+          <a href="#" class="btn btn-info">Edit</a>
+          <!-- Button trigger modal -->
+          <button type="button" type="button" class="btn btn-danger" data-bs-toggle="modal"
+            data-bs-target="#todoModal">Delete</button>
+          <a href="#" class="btn btn-success">Complete</a>
+>>>>>>> b873ec94eaf2dbb7b8e44672b3e326662327e98f
         </td>
       </tr>
       <!-- Modal -->

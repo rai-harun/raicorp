@@ -30,6 +30,7 @@ def TodoDelete(request, pk):
     todo_to_delete.delete()
     return redirect('todohome')
 
+<<<<<<< HEAD
 def TodoEdit(request, pk):
     todo_edit = Todo.objects.get(id=pk)
     form = TodoForm(request.POST, instance=todo_edit)
@@ -43,3 +44,5 @@ def TodoComplete(request, pk):
     form.completed = True
     form.save()
     return redirect('todohome')
+=======
+>>>>>>> b873ec94eaf2dbb7b8e44672b3e326662327e98f
