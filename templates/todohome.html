@@ -22,7 +22,12 @@
       {% for todo in todos %}
       <tr>
         <th scope="row">{{forloop.counter}}</th>
+        {% if todo.completed == True %}
+        <td><strike>{{todo.title}}</strike></td>
+        {% else %}
         <td>{{todo.title}}</td>
+        {% endif %}
+        
         <td>{{todo.created_at}}</td>
         <td>{{todo.completed}}</td>
         <td>
