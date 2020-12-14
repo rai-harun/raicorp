@@ -25,3 +25,8 @@ def TodoAdd(request):
             return HttpResponse("Invalid submission!")
     return render(request, 'todoadd.html', {'form': form})
 
+def TodoDelete(request, pk):
+    todo_to_delete = Todo.objects.get(id=pk)
+    todo_to_delete.delete()
+    return redirect('todohome')
+
