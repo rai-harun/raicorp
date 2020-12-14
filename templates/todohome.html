@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>RaiCorp Todo | Home</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-3">
+  <a href="{% url 'todoadd' %}" class="m-2 btn btn-primary">Add a todo</a>
+  <hr>
+  {% if todos.exists %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tasks</th>
+        <th scope="col">Date Created</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in todos %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{todo.title}}</td>
+        <td>{{todo.created_at}}</td>
+        <td>{{todo.completed}}</td>
+        <td>
+          <!-- Button trigger modal -->
+          <button type="button" type="button" class="btn btn-danger" data-bs-toggle="modal"
+            data-bs-target="#todoModal">Delete</button>
+          {% if  todo.completed == True %}
+          <a href="{% url 'todocomplete' todo.id %}" class="btn btn-success disabled">Completed</a>
+          <a href="{% url 'todoedit' todo.id %}" class="btn btn-info disabled">Edit</a>
+          {% else %}
+          <a href="{% url 'todoedit' todo.id %}" class="btn btn-info">Edit</a>
+          <a href="{% url 'todocomplete' todo.id %}" class="btn btn-success">Complete</a>
+          {% endif %}
+        </td>
+      </tr>
+      <!-- Modal -->
+      <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger" id="todoModalLabel">Heads up!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure to delete {{todo.title}}?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <a href="{% url 'tododelete' todo.id %}" class="btn btn-primary">Confirm</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </tbody>
+      {% endfor %}
+  </table>
+  {% else %}
+      <h3 class="mt-4 text-center">No todos found!</h3>
+      <h5 class="text-center">:) </h5>
+  {% endif %}
+</div>
+{% endblock content %}
