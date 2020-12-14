@@ -8,7 +8,7 @@ from .forms import TodoForm
 
 def Home(request):
     # return HttpResponse("Welcome to Todo Home Page!")
-    todos = Todo.objects.all()
+    todos = Todo.objects.all().order_by('-id')
     context = {
         'todos': todos
     }
