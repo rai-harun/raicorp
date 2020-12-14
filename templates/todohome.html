@@ -7,6 +7,7 @@
 <div class="container mt-3">
   <a href="{% url 'todoadd' %}" class="m-2 btn btn-primary">Add a todo</a>
   <hr>
+  {% if todos.exists %}
   <table class="table">
     <thead>
       <tr>
@@ -48,8 +49,12 @@
           </div>
         </div>
       </div>
-      {% endfor %}
     </tbody>
+      {% endfor %}
   </table>
+  {% else %}
+      <h3 class="mt-4 text-center">No todos found!</h3>
+      <h5 class="text-center">:) </h5>
+  {% endif %}
 </div>
 {% endblock content %}
