@@ -21,7 +21,7 @@
     <tbody>
       {% for todo in todos %}
       <tr>
-        <th scope="row">{{forloop.counter}}</th>
+        <td scope="row">{{forloop.counter}}</td>
         {% if todo.completed == True %}
         <td><strike>{{todo.title}}</strike></td>
         {% else %}
@@ -32,11 +32,11 @@
         <td>{{todo.completed}}</td>
         <td>
           <!-- Button trigger modal -->
-          <button type="button" type="button" class="btn btn-danger" data-bs-toggle="modal"
-            data-bs-target="#todoModal">Delete</button>
+          <a ahref="#" type="button" class="btn btn-danger" data-bs-toggle="modal"
+            data-bs-target="#todoModal">Delete</a>
           {% if  todo.completed == True %}
-          <a href="{% url 'todocomplete' todo.id %}" class="btn btn-success disabled">Completed</a>
-          <a href="{% url 'todoedit' todo.id %}" class="btn btn-info disabled">Edit</a>
+          <a href="#" class="btn btn-success disabled">Completed</a>
+          <a href="#" class="btn btn-info disabled">Edit</a>
           {% else %}
           <a href="{% url 'todoedit' todo.id %}" class="btn btn-info">Edit</a>
           <a href="{% url 'todocomplete' todo.id %}" class="btn btn-success">Complete</a>
@@ -61,8 +61,8 @@
           </div>
         </div>
       </div>
-    </tbody>
       {% endfor %}
+    </tbody>
   </table>
   {% else %}
       <h3 class="mt-4 text-center">No todos found!</h3>

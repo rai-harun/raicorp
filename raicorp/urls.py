@@ -27,6 +27,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('todo/', include('todo.urls')),
+    path('users/', include('users.urls')),
     path('', views.index, name="index"),
 
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
