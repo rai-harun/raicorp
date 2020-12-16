@@ -3,10 +3,23 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 # from django.contrib.auth.models import 
 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
 # Create your views here.
 
 def RegisterUser(request):
-    context = {}
+    f = UserCreationForm(request.POST)
+    if request.method == 'POST':
+        f = UserCreationForm(request.POST)
+        if f.is_valid():
+            f.save()
+            messages.success(request, 'Account has been successfully created')
+            return redirect('users:login')
+        else:
+            # pass
+            return HttpResponse(f'User cannot be created with the details provided. Try again.')
+    context = {'form': f}
     return render(request, 'registeruser.html', context)
 
 def LoginUser(request):
