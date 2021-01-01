@@ -15,7 +15,7 @@ def RegisterUser(request):
         if f.is_valid():
             f.save()
             messages.success(request, 'Account has been successfully created')
-            return redirect('users:login')
+            # return redirect('users:login')
         else:
             # pass
             return HttpResponse(f'User cannot be created with the details provided. Try again.')
@@ -30,9 +30,10 @@ def LoginUser(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success (request, f'Logged in successfully. Welcome {request.user}')
             return redirect('todohome')
         else:
-            return HttpResponse('Invalid login credentials :(')
+            messages.error(request, 'Enter the valid credentials')
     return render(request, 'login.html')
 
 def LogoutUser(request):
