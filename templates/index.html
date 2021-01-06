@@ -7,6 +7,18 @@
 {% block content %}
 <div class="container text-center mt-4">
   {% include '_messages.html' %}
+  {% if user.is_authenticated %}
+  {% else %}
+  <div class="row mb-3">
+        <div class="col-md-6 d-grid gap-2">
+            <a href="{% url 'users:login'%}" class="btn btn-secondary">Sign In</a>
+        </div>
+        <div class="col-md-6 d-grid gap-2">
+            <a href="{% url 'users:registeruser' %}" class="btn btn-primary btn-block">Sign Up</a>
+        </div>
+    </div>
+  {% endif %}
+    
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -24,14 +36,7 @@
       </div>
 
 
-    <div class="row">
-        <div class="col-md-6 d-grid gap-2">
-            <a href="{% url 'users:login'%}" class="btn btn-secondary">Sign In</a>
-        </div>
-        <div class="col-md-6 d-grid gap-2">
-            <a href="{% url 'users:registeruser' %}" class="btn btn-primary btn-block">Sign Up</a>
-        </div>
-    </div>
+    
     <div id="samaya" class="text-center bg bg-info p-4 mt-3"></div>
 </div>
 <script>

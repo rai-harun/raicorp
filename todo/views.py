@@ -9,9 +9,19 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @login_required(login_url='users:login')
-def Home(request):
+def HomeLanding(request):
     # return HttpResponse("Welcome to Todo Home Page!")
-    todos = Todo.objects.all().order_by('-id')
+    # todos = Todo.objects.get(user__id=pk).order_by('-id')
+    # todos = Todo.objects.get(user__id=pk)
+    context = {
+        # 'todos': todos
+    }
+    return render(request, 'todohome.html', context)
+@login_required(login_url='users:login')
+def Home(request, pk):
+    # return HttpResponse("Welcome to Todo Home Page!")
+    # todos = Todo.objects.get(user__id=pk).order_by('-id')
+    todos = Todo.objects.get(user__id=pk)
     context = {
         'todos': todos
     }

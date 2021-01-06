@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container mt-3">
   {% include '_messages.html' %}
-  <a href="{% url 'todoadd' %}" class="m-2 btn btn-primary">Add a todo</a>
+  <a href="{% url 'todoadd'%}" class="m-2 btn btn-primary">Add a todo</a>
   <hr>
   {% if todos.exists %}
   <table class="table">

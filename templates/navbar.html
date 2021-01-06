@@ -9,7 +9,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         {% if request.user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'todohome' %}">Todo</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'todohome' request.user.id%}">Todo</a>
         </li>
         {% endif %}
       </ul>
@@ -19,13 +19,11 @@
           <p class="text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Settings</p>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% if request.user.is_authenticated %}
-            <li><a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a></li>
-            {% else %}
-            <li><a class="dropdown-item" href="{% url 'users:login' %}">Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'users:profiledetails' request.user.id %}">Profile</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="{% url 'users:registeruser'%}">Register</a></li>
+            <li><a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a></li>
             {% endif %}
             
           </ul>

@@ -13,7 +13,8 @@ urlpatterns = [
     #logout
     path('logout/', views.LogoutUser, name='logout'),
     #registration page
-    path('register/', views.RegisterUser, name="registeruser")
+    path('register/', views.RegisterUser, name="registeruser"),
+    path('profiledetails/<str:pk>/', views.ProfileDetails, name="profiledetails"),
 ]
 
 

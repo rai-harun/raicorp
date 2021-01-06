@@ -3,18 +3,40 @@
 <title> Create User - {{block.super}}</title>
 {% endblock title %}
 {% block content %}
-<div class="container">
-    <h1>User Registration</h1>
-    <form action="" method="post">
+<div class="container mt-3">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 border border-secondary rounded p-2">
+        <h1>Sign Up</h1>
+    <form method="post" action="">
+      {% include '_messages.html' %}
         {% csrf_token %}
-        {% include '_messages.html' %}
-        <table>
-            {{form.as_table}}
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Register"></td>
-            </tr>
-        </table>
-    </form>
+        <hr>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          {{form.username}}
+          <div id="usernameHelp" class="form-text">Username should only contain alpha numeric</div>
+          <hr>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          {{form.email}}
+        </div>
+        <hr>
+        <div class="mb-3">
+          <label for="password1" class="form-label">Password</label>
+          {{form.password1}}
+        </div>
+        <hr>
+        <div class="mb-3">
+          <label for="password2" class="form-label">Confirm Password</label>
+          {{form.password2}}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
 </div>
 {% endblock content %}

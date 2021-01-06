@@ -5,21 +5,34 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from .forms import CreateUserForm, ProfileForm
+from django.contrib.auth.models import User
 
+from django.contrib.auth.decorators import login_required
+
+from .models import Profile
 # Create your views here.
 
 def RegisterUser(request):
-    f = UserCreationForm(request.POST)
+    form = CreateUserForm()
+    customers = []
+    users = User.objects.all()
+    for user in users:
+        customers.append(user.username)
     if request.method == 'POST':
-        f = UserCreationForm(request.POST)
-        if f.is_valid():
-            f.save()
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
             messages.success(request, 'Account has been successfully created')
-            # return redirect('users:login')
+            print('User created')
+            return redirect('users:login')
+        elif request.POST['username'] in customers:
+            print('Same username')
+            messages.error(request, 'Oops! Username is already taken. Try with new one.')
         else:
-            # pass
-            return HttpResponse(f'User cannot be created with the details provided. Try again.')
-    context = {'form': f}
+            print('wrong password')
+            messages.error(request, 'Oops! something went wrong. Try again.')
+    context = {'form': form}
     return render(request, 'registeruser.html', context)
 
 def LoginUser(request):
@@ -31,11 +44,24 @@ def LoginUser(request):
         if user is not None:
             login(request, user)
             messages.success (request, f'Logged in successfully. Welcome {request.user}')
-            return redirect('todohome')
+            return redirect('index')
         else:
             messages.error(request, 'Enter the valid credentials')
     return render(request, 'login.html')
 
+@login_required(login_url='users:login')
 def LogoutUser(request):
     logout(request)
     return redirect('users:login')
+
+def ProfileDetails(request, pk):
+    user = User.objects.get(id=pk)
+    profile_user = Profile.objects.get(user__id=pk)
+    
+    context = {
+        'user':user,
+        'profile_user': profile_user
+    }
+    # profile = Profile.objects.get(user=user)
+    # profile = User.objects.filter(username=user).select_related('Profile')
+    return render(request, 'profiledetails.html', context)
