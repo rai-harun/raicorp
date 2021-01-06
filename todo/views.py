@@ -1,27 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Todo
+from todo.models import Todo
 
 from .forms import TodoForm
 from django.contrib.auth.decorators import login_required
 
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
 @login_required(login_url='users:login')
-def HomeLanding(request):
+def Home(request):
     # return HttpResponse("Welcome to Todo Home Page!")
     # todos = Todo.objects.get(user__id=pk).order_by('-id')
-    # todos = Todo.objects.get(user__id=pk)
-    context = {
-        # 'todos': todos
-    }
-    return render(request, 'todohome.html', context)
-@login_required(login_url='users:login')
-def Home(request, pk):
-    # return HttpResponse("Welcome to Todo Home Page!")
-    # todos = Todo.objects.get(user__id=pk).order_by('-id')
-    todos = Todo.objects.get(user__id=pk)
+    todos = Todo.objects.filter(user__id=request.user.id).order_by('-created_at')
     context = {
         'todos': todos
     }
@@ -31,12 +24,18 @@ def Home(request, pk):
 def TodoAdd(request):
     form = TodoForm(request.POST)
     if request.method == 'POST':
-        form = TodoForm(request.POST)
+        form = TodoForm(request.POST, instance=request.user.todo)
         if form.is_valid():
             form.save()
-            return redirect('/todo')
+            messages.success(request, "A todo has been created!")
+            # return redirect('todohome')
+            # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            # return HttpResponseRedirect('/todo/'+str(request.user.id)+'/')
+            response = redirect('todohome')
+            return response
         else:
-            return HttpResponse("Invalid submission!")
+            messages.error(request, "A todo could not be created! Try again.")
+            # return HttpResponse("Invalid submission!")
     return render(request, 'todoadd.html', {'form': form})
 
 @login_required(login_url='login')
