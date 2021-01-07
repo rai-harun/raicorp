@@ -24,7 +24,8 @@ def Home(request):
 def TodoAdd(request):
     form = TodoForm(request.POST)
     if request.method == 'POST':
-        form = TodoForm(request.POST, instance=request.user.todo)
+        # form = TodoForm(request.POST, request.FILES, instance=request.user.todo)
+        form = TodoForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, "A todo has been created!")
