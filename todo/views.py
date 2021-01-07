@@ -27,6 +27,9 @@ def TodoAdd(request):
         # form = TodoForm(request.POST, request.FILES, instance=request.user.todo)
         form = TodoForm(request.POST, instance=request.user)
         if form.is_valid():
+            title = form.cleaned_data.get('title','')
+            Todo.objects.create(title=title, user=request.user)
+            print(title)
             form.save()
             messages.success(request, "A todo has been created!")
             # return redirect('todohome')
